@@ -21,17 +21,23 @@ Vector3 Multiply(float scalar, const Vector3& v1) {
 	v.z = v1.z * scalar;
 	return v;
 }
-Vector3 Normalize(const Vector3& v1) {
+float Length(const Vector3& v1) {
 	float a, b, c, d;
 	a = v1.x * v1.x + v1.y * v1.y;
-	b = (float)sqrt(a);
+	b = float(sqrt(a));
 	c = b * b + v1.z * v1.z;
-	d = sqrtf(c);
-	Vector3 v;
-	v.x = v1.x / d;
-	v.y = v1.y / d;
-	v.z = v1.z / d;
-	return v;
+	d = float(sqrt(c));
+	return d;
+}
+Vector3 Normalize(const Vector3& v1) { 
+	float len = Length(v1);
+	Vector3 result = v1;
+	if (len != 0) {
+		result.x /= len;
+		result.y /= len;
+		result.z /= len;
+	}
+	return result;
 }
 Vector3 Multiply(Vector3 vector, Matrix4x4 matrix) {
 	Vector3 result = {};

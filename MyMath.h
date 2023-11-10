@@ -14,6 +14,7 @@
 Vector3 Add(const Vector3& v1, const Vector3& v2);
 Vector3 Subtract(const Vector3& v1, const Vector3& v2);
 Vector3 Multiply(float scalar, const Vector3& v1);
+float Length(const Vector3& v1);
 Vector3 Normalize(const Vector3& v1);
 Vector3 Multiply(Vector3 vector, Matrix4x4 matrix);
 Matrix4x4 Multiply(const Matrix4x4& m1, const Matrix4x4& m2);
