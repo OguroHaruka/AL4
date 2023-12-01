@@ -68,6 +68,11 @@ private: // メンバ変数
 
 	std::unique_ptr<FollowCamera> followCamera_;
 
+	std::unique_ptr<Model> modelBody_;
+	std::unique_ptr<Model> modelHead_;
+	std::unique_ptr<Model> modelL_arm_;
+	std::unique_ptr<Model> modelR_arm_;
+
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

@@ -22,8 +22,11 @@ void GameScene::Initialize() {
 	
 
 	player_ = std::make_unique<Player>();
-	playerModel_.reset(Model::CreateFromOBJ("Player",true));
-	player_->Initialize(playerModel_.get());
+	modelBody_.reset(Model::CreateFromOBJ("float_Body", true));
+	modelHead_.reset(Model::CreateFromOBJ("float_Head", true));
+	modelL_arm_.reset(Model::CreateFromOBJ("float_L_arm", true));
+	modelR_arm_.reset(Model::CreateFromOBJ("float_R_arm", true));
+	player_->Initialize(modelBody_.get(), modelHead_.get(), modelL_arm_.get(), modelR_arm_.get());
 
 	followCamera_ = std::make_unique<FollowCamera>();
 	followCamera_->Initialize();
