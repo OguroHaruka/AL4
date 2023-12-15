@@ -26,7 +26,9 @@ void GameScene::Initialize() {
 	modelHead_.reset(Model::CreateFromOBJ("float_Head", true));
 	modelL_arm_.reset(Model::CreateFromOBJ("float_L_arm", true));
 	modelR_arm_.reset(Model::CreateFromOBJ("float_R_arm", true));
-	player_->Initialize(modelBody_.get(), modelHead_.get(), modelL_arm_.get(), modelR_arm_.get());
+	std::vector<Model*> playerModels = {
+	    modelBody_.get(), modelHead_.get(), modelL_arm_.get(), modelR_arm_.get()};
+	player_->Initialize(playerModels);
 
 	followCamera_ = std::make_unique<FollowCamera>();
 	followCamera_->Initialize();
@@ -42,11 +44,19 @@ void GameScene::Initialize() {
 	groundModel_.reset(Model::CreateFromOBJ("Ground", true));
 	ground_->Initialize(groundModel_.get());
 
+	enemy_ = std::make_unique<Enemy>();
+	modelNeedleBody_.reset(Model::CreateFromOBJ("needle_Body", true));
+	modelNeedleL_arm_.reset(Model::CreateFromOBJ("needle_L_arm", true));
+	modelNeedleR_arm_.reset(Model::CreateFromOBJ("needle_R_arm", true));
+	std::vector<Model*> enemyModels = {
+	    modelNeedleBody_.get(), modelNeedleL_arm_.get(), modelNeedleR_arm_.get()};
+	enemy_->Initialize(enemyModels);
 
 	}
 
 void GameScene::Update() { 
 	player_->Update();
+	enemy_->Update();
 	debugCamera_->Update();
 	followCamera_->Update();
 	
@@ -97,6 +107,7 @@ void GameScene::Draw() {
 	/// </summary>
 
 	player_->Draw(viewProjection_);
+	enemy_->Draw(viewProjection_);
 	skydome_->Draw(viewProjection_);
 	ground_->Draw(viewProjection_);
 

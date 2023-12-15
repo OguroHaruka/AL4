@@ -5,14 +5,15 @@
 #include "MyMath.h"
 #include <math.h>
 #include "ImGuiManager.h"
+#include "BaseCharacter.h"
 
-class Player {
+class Player : public BaseCharacter{
 public:
-	void Initialize(Model* modelBody,Model*modelHead,Model*modelL_arm,Model*modelR_arm);
+	void Initialize(const std::vector<Model*>&models)override;
 	void InitializeFloatingGimick();
-	void Update();
+	void Update()override;
 	void UpdateFloatingGimick();
-	void Draw(ViewProjection& viewProjection);
+	void Draw(const ViewProjection& viewProjection)override;
 	const WorldTransform& GetWorldTransform() { return worldTransform_; }
 	void SetViewProjection(const ViewProjection* viewProjection) {
 		viewProjection_ = viewProjection;

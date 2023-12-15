@@ -1,12 +1,13 @@
 #include "Player.h"
 #include <cassert>
 
-void Player::Initialize(Model* modelBody, Model* modelHead, Model* modelL_arm, Model* modelR_arm) {
-	assert(modelBody);
-	modelBody_ = modelBody;
-	modelHead_ = modelHead;
-	modelL_arm_ = modelL_arm;
-	modelR_arm_ = modelR_arm;
+void Player::Initialize(const std::vector<Model*>& models) {
+	BaseCharacter::Initialize(models);
+	assert(models[0]);
+	/*modelBody_ = models[0];
+	modelHead_ = models[1];
+	modelL_arm_ = models[2];
+	modelR_arm_ = models[3];*/
 	InitializeFloatingGimick();
 	worldTransform_.Initialize();
 	worldTransform_.scale_ = {1.0f, 1.0f, 1.0f};
@@ -37,6 +38,8 @@ void Player::InitializeFloatingGimick() {
 
 void Player::Update() { 
 	
+	
+
 	XINPUT_STATE joyState;
 
 	Vector3 move = {0.0f, 0.0f, 0.0f};
@@ -65,9 +68,7 @@ void Player::Update() {
 	}
 
 	UpdateFloatingGimick();
-
-
-
+	BaseCharacter::Update();
 	worldTransform_.UpdateMatrix();
 	worldTransformBody_.UpdateMatrix();
 	worldTransformHead_.UpdateMatrix();
@@ -76,7 +77,7 @@ void Player::Update() {
 }
 
 void Player::UpdateFloatingGimick() {
-	const uint16_t period = uint32_t(60.0f);
+	const uint16_t period = uint32_t(90.0f);
 	const float step = 2.0f * float(M_PI) / period;
 	floatingParameter_ += step;
 	floatingParameter_ = std::fmod(floatingParameter_, 2.0f * float(M_PI));
@@ -86,10 +87,10 @@ void Player::UpdateFloatingGimick() {
 	worldTransformL_arm_.rotation_.x = std::sin(floatingParameter_) * amplitube;
 }
 
-void Player::Draw(ViewProjection& viewProjection) {
-	modelBody_->Draw(worldTransformBody_, viewProjection);
-	modelHead_->Draw(worldTransformHead_, viewProjection);
-	modelL_arm_->Draw(worldTransformR_arm_, viewProjection);
-	modelR_arm_->Draw(worldTransformL_arm_, viewProjection);
+void Player::Draw(const ViewProjection& viewProjection) {
+	models_[0]->Draw(worldTransformBody_, viewProjection);
+	models_[1]->Draw(worldTransformHead_, viewProjection);
+	models_[2]->Draw(worldTransformR_arm_, viewProjection);
+	models_[3]->Draw(worldTransformL_arm_, viewProjection);
 }
 
