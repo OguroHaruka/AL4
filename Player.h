@@ -6,6 +6,7 @@
 #include <math.h>
 #include "ImGuiManager.h"
 #include "BaseCharacter.h"
+#include <optional>
 
 class Player : public BaseCharacter{
 public:
@@ -18,13 +19,21 @@ public:
 	void SetViewProjection(const ViewProjection* viewProjection) {
 		viewProjection_ = viewProjection;
 	}
+	void BehaviorRootUpdate();
+	void BehaviorAttackUpdate();
+	void BehaviorRootInitialize();
+	void BehaviorAttackInitialize();
+	enum class Behavior { kRoot, kAttack, };
 
 private:
+	Behavior behavior_ = Behavior::kRoot;
+	std::optional<Behavior> behaviorRequest_ = std::nullopt;
 	WorldTransform worldTransform_;
 	WorldTransform worldTransformBody_;
 	WorldTransform worldTransformHead_;
 	WorldTransform worldTransformL_arm_;
 	WorldTransform worldTransformR_arm_;
+	WorldTransform worldTransformHammer_;
 	const ViewProjection* viewProjection_ = nullptr; 
 	Model* modelBody_ = nullptr;
 	Model* modelHead_ = nullptr;
@@ -33,4 +42,7 @@ private:
 	Player* player_ = nullptr;
 	Input* input_ = nullptr;
 	float floatingParameter_ = 0.0f;
+	bool isHammerDraw_;
+	bool isHammerSet_;
+	int stanbyTime;
 };

@@ -27,7 +27,7 @@ void Enemy::Update() {
 
 	worldTransform_.rotation_.y += 0.05f;
 
-	const float kEnemySpeed = 1.0f;
+	const float kEnemySpeed = 0.2f;
 	Vector3 velocity(0, 0, kEnemySpeed);
 	velocity = TransformNormal(velocity, worldTransform_.matWorld_);
 	worldTransform_.translation_=Add(worldTransform_.translation_ , velocity);
