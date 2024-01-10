@@ -24,6 +24,11 @@ public:
 	void BehaviorRootInitialize();
 	void BehaviorAttackInitialize();
 	enum class Behavior { kRoot, kAttack, };
+	Vector3 GetWorldPosition();
+	void SetFallSpeed(float fallSpeed) { fallSpeed_ = fallSpeed; }
+	void SetFallFlag(bool fallFlag) { fallFlag_ = fallFlag; }
+	void SetTranslationX(float translationX) { worldTransform_.translation_.x = translationX; }
+	void SetTranslationY(float translationY) { worldTransform_.translation_.y = translationY; }
 
 private:
 	Behavior behavior_ = Behavior::kRoot;
@@ -33,6 +38,8 @@ private:
 	WorldTransform worldTransformHead_;
 	WorldTransform worldTransformL_arm_;
 	WorldTransform worldTransformR_arm_;
+	WorldTransform worldTransformL_asi_;
+	WorldTransform worldTransformR_asi_;
 	WorldTransform worldTransformHammer_;
 	const ViewProjection* viewProjection_ = nullptr; 
 	Model* modelBody_ = nullptr;
@@ -45,4 +52,8 @@ private:
 	bool isHammerDraw_;
 	bool isHammerSet_;
 	int stanbyTime;
+	bool r_asi_animeflag;
+	bool l_asi_animeflag;
+	float fallSpeed_;
+	bool fallFlag_;
 };

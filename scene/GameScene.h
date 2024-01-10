@@ -14,6 +14,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "FollowCamera.h"
+#include "field.h"
 #include <memory>
 
 /// <summary>
@@ -48,6 +49,9 @@ public: // メンバ関数
 	void Draw();
 
 private: // メンバ変数
+
+	void CheakCollisions();
+
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
@@ -73,8 +77,13 @@ private: // メンバ変数
 	std::unique_ptr<Model> modelHead_;
 	std::unique_ptr<Model> modelL_arm_;
 	std::unique_ptr<Model> modelR_arm_;
+	std::unique_ptr<Model> modelL_asi_;
+	std::unique_ptr<Model> modelR_asi_;
 
 	std::unique_ptr<Model> modelHammer_;
+
+	std::unique_ptr <Model> fieldModel_;
+	std::unique_ptr<field> field_;
 
 	std::unique_ptr<Enemy> enemy_;
 	std::unique_ptr<Model> enemyModel_;

@@ -24,9 +24,16 @@ void GameScene::Initialize() {
 	modelHead_.reset(Model::CreateFromOBJ("float_Head", true));
 	modelL_arm_.reset(Model::CreateFromOBJ("float_L_arm", true));
 	modelR_arm_.reset(Model::CreateFromOBJ("float_R_arm", true));
+	modelL_asi_.reset(Model::CreateFromOBJ("float_L_asi", true));
+	modelR_asi_.reset(Model::CreateFromOBJ("float_R_asi", true));
 	modelHammer_.reset(Model::CreateFromOBJ("hammer", true));
+	fieldModel_.reset(Model::CreateFromOBJ("field", true));
+
+	field_ = std::make_unique<field>();
+	field_->Initialize(fieldModel_.get(), {5.0f, -2.5f, 5.0f}, {5.0f,1.1f,5.0f});
+
 	std::vector<Model*> playerModels = {
-	    modelBody_.get(), modelHead_.get(), modelL_arm_.get(), modelR_arm_.get(),modelHammer_.get()};
+	    modelBody_.get(), modelHead_.get(), modelL_arm_.get(), modelR_arm_.get(),modelHammer_.get(),modelL_asi_.get(),modelR_asi_.get()};
 	player_->Initialize(playerModels);
 
 	followCamera_ = std::make_unique<FollowCamera>();
@@ -55,10 +62,11 @@ void GameScene::Initialize() {
 
 void GameScene::Update() { 
 	player_->Update();
-	enemy_->Update();
+	//enemy_->Update();
 	debugCamera_->Update();
 	followCamera_->Update();
-	
+	field_->Update();
+	CheakCollisions();
 #ifdef _DEBUG
 	if (input_->TriggerKey(DIK_RETURN)) {
 		isDebugCameraActive_ = true;
@@ -106,9 +114,9 @@ void GameScene::Draw() {
 	/// </summary>
 
 	player_->Draw(viewProjection_);
-	enemy_->Draw(viewProjection_);
+	//enemy_->Draw(viewProjection_);
 	skydome_->Draw(viewProjection_);
-	ground_->Draw(viewProjection_);
+	field_->Draw(viewProjection_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -126,4 +134,21 @@ void GameScene::Draw() {
 	Sprite::PostDraw();
 
 #pragma endregion
+}
+
+void GameScene::CheakCollisions() {
+	Vector3 posA, posB;
+	//float posAB;
+	posA = player_->GetWorldPosition();
+	posB = field_->GetWorldPosition();
+	
+	if (posB.y + 1.0f >= posA.y - 2.0f && 
+		posB.z >= posA.z - 0.3f && posB.z-10.0f <= posA.z + 0.4f&&
+		posB.x>=posA.x-0.4&&posB.x-10.0f<=posA.x+0.4f) {
+		player_->SetFallSpeed(0.0f);
+		player_->SetFallFlag(false);
+		player_->SetTranslationY(0.5f);
+	} else {
+		player_->SetFallFlag(true);
+	}
 }
