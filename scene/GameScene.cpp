@@ -144,7 +144,7 @@ void GameScene::CheakCollisions() {
 	
 	if (posB.y + 1.0f >= posA.y - 2.0f && 
 		posB.z >= posA.z - 0.3f && posB.z-10.0f <= posA.z + 0.4f&&
-		posB.x>=posA.x-0.4&&posB.x-10.0f<=posA.x+0.4f) {
+		posB.x>=posA.x-0.6&&posB.x-10.0f<=posA.x+0.6f) {
 		player_->SetFallSpeed(0.0f);
 		player_->SetFallFlag(false);
 		player_->SetTranslationY(0.5f);
