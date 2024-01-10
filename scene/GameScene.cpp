@@ -19,8 +19,6 @@ void GameScene::Initialize() {
 	AxisIndicator::GetInstance()->SetVisible(true);
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 
-	
-
 	player_ = std::make_unique<Player>();
 	modelBody_.reset(Model::CreateFromOBJ("float_Body", true));
 	modelHead_.reset(Model::CreateFromOBJ("float_Head", true));
