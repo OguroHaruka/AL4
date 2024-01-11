@@ -1,10 +1,9 @@
 #pragma once
 #include "Model.h"
 #include "WorldTransform.h"
-
-class field {
+class hata {
 public:
-	void Initialize(Model* model,Vector3 pos,Vector3 scale);
+	void Initialize(Model* model);
 	void Update();
 	void Draw(ViewProjection& viewProjection);
 	Vector3 GetWorldPosition();
@@ -12,5 +11,6 @@ public:
 private:
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
-
+	bool moveFlag;
+	float speed;
 };

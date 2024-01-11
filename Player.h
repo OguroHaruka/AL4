@@ -27,8 +27,11 @@ public:
 	Vector3 GetWorldPosition();
 	void SetFallSpeed(float fallSpeed) { fallSpeed_ = fallSpeed; }
 	void SetFallFlag(bool fallFlag) { fallFlag_ = fallFlag; }
+	bool GetFallFlag() { return fallFlag_; }
 	void SetTranslationX(float translationX) { worldTransform_.translation_.x = translationX; }
 	void SetTranslationY(float translationY) { worldTransform_.translation_.y = translationY; }
+	void SetTranslationZ(float translationZ) { worldTransform_.translation_.z = translationZ; }
+	void SetTranslation(Vector3 translation) { worldTransform_.translation_ = translation; }
 
 private:
 	Behavior behavior_ = Behavior::kRoot;

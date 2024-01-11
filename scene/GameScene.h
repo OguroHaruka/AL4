@@ -15,6 +15,10 @@
 #include "Enemy.h"
 #include "FollowCamera.h"
 #include "field.h"
+#include "MoveYuka.h"
+#include "hata.h"
+#include "tama.h"
+#include "Scene.h"
 #include <memory>
 
 /// <summary>
@@ -47,10 +51,19 @@ public: // メンバ関数
 	/// 描画
 	/// </summary>
 	void Draw();
+	bool IsSceneEnd() { return isSceneEnd; }
+	void SetIsSceneEnd(bool isSceneEnd_) { isSceneEnd = isSceneEnd_; }
+	SceneType NextScene() { return SceneType::kGameClear; }
+	void Reset();
 
 private: // メンバ変数
 
 	void CheakCollisions();
+
+	
+
+	int count;
+	bool isSceneEnd=false;
 
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -84,6 +97,16 @@ private: // メンバ変数
 
 	std::unique_ptr <Model> fieldModel_;
 	std::unique_ptr<field> field_;
+	std::unique_ptr<field> field2_;
+
+	std::unique_ptr<MoveYuka> moveYuka_;
+
+	std::unique_ptr<Model> hataModel_;
+	std::unique_ptr<hata> hata_;
+
+	std::unique_ptr<Model> tamaModel_;
+	std::unique_ptr<tama> tama_[10];
+	
 
 	std::unique_ptr<Enemy> enemy_;
 	std::unique_ptr<Model> enemyModel_;

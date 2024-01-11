@@ -129,6 +129,7 @@ void Player::BehaviorRootUpdate() {
 
 	const float kCharacterSpeed = 0.3f;
 	if (Input::GetInstance()->GetJoystickState(0, joyState)) {
+
 		move.x = (float)joyState.Gamepad.sThumbLX / SHRT_MAX * kCharacterSpeed;
 		move.z = (float)joyState.Gamepad.sThumbLY / SHRT_MAX * kCharacterSpeed;
 		move = Multiply(kCharacterSpeed, Normalize(move));
@@ -168,18 +169,16 @@ void Player::BehaviorRootUpdate() {
 			    r_asi_animeflag = false;
 		}
 	}
-
 	
-	if (fallSpeed_ >= 4.0f) {
-		fallSpeed_ = 4.0f;
+	
+	if (fallSpeed_ >= 3.0f) {
+		fallSpeed_ = 3.0f;
 	}
 	if (fallFlag_ == true) {
 		fallSpeed_ += 0.05f;
 		worldTransform_.translation_.y -= fallSpeed_;
 	}
-	if (worldTransform_.translation_.y <= -100.0f) {
-		worldTransform_.translation_ = {0.0f, 50.0f, 0.0f};
-	}
+	
 	if (move.z != 0 || move.y != 0) {
 		worldTransform_.rotation_.y = std::atan2(move.x, move.z);
 	}
