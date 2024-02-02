@@ -348,7 +348,6 @@ void GameScene::CheakCollisions() {
 }
 
 void GameScene::Reset() {
-	followCamera_->Initialize();
 	count = 0;
 	player_->SetTranslation({0.0f, 50.0f, 0.0f});
 	moveYuka_->SetTranslation({4.0f, -2.5f, 13.0f});

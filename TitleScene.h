@@ -11,6 +11,11 @@
 #include "WorldTransform.h"
 #include "Scene.h"
 #include "Fade.h"
+#include "PlayerAnime.h"
+#include "CameraAnime.h"
+#include "Skydome.h"
+#include "field.h"
+
 class TitleScene {
 public: 
 	TitleScene();
@@ -37,6 +42,29 @@ public:
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
+
+	WorldTransform worldTransform_;
+	ViewProjection viewProjection_;
+
+	std::unique_ptr<PlayerAnime> playerAnime_;
+	std::unique_ptr<Model> playerModel_;
+
+	std::unique_ptr<Skydome> skydome_;
+	std::unique_ptr<Model> skydomeModel_;
+
+	std::unique_ptr<CameraAnime> cameraAnime_;
+
+	std::unique_ptr<Model> modelBody_;
+	std::unique_ptr<Model> modelHead_;
+	std::unique_ptr<Model> modelL_arm_;
+	std::unique_ptr<Model> modelR_arm_;
+	std::unique_ptr<Model> modelL_asi_;
+	std::unique_ptr<Model> modelR_asi_;
+
+	std::unique_ptr<Model> modelHammer_;
+
+	std::unique_ptr<Model> fieldModel_;
+	std::unique_ptr<field> field_;
 
 	bool isSceneEnd = false;
 
