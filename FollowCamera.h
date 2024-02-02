@@ -13,7 +13,6 @@ public:
 
 private:
 	ViewProjection viewProjection_;
-	WorldTransform worldTransform_;
 	const WorldTransform* target_ = nullptr;
 	Input* input_ = nullptr;
 };

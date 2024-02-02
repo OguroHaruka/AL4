@@ -10,12 +10,28 @@ void TitleScene::Initialize() {
 	uint32_t textureTitle = TextureManager::Load("Title.png");
 	titleSprite_ =
 	    Sprite::Create(textureTitle, {-300.0f, -160.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	fade_ = std::make_unique<Fade>();
+	fade_->Initialize(0.0f);
+	fadeCount_ = 0;
+	fadeFlag_ = false;
 }
 
-void TitleScene::Update() { XINPUT_STATE joyState; 
+void TitleScene::Update() { 
+	
+	if (fadeFlag_ == true) {
+		fadeCount_++;
+		fade_->Update(0.01f);
+	}
+	if (fadeCount_ >= 120) {
+		fadeCount_ = 0;
+		fadeFlag_ = false;
+		fade_->Initialize(0.0f);
+		isSceneEnd = true;
+	}
+	XINPUT_STATE joyState; 
 if (Input::GetInstance()->GetJoystickState(0, joyState)) {
 		if (joyState.Gamepad.wButtons == XINPUT_GAMEPAD_B) {
-		isSceneEnd = true;
+		fadeFlag_ = true;
 		}
 	}
 
@@ -58,7 +74,11 @@ void TitleScene::Draw() {// コマンドリストの取得
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
 
+	
 	titleSprite_->Draw();
+	if (fadeCount_ >= 1) {
+		fade_->Draw();
+	}
 
 	// スプライト描画後処理
 	Sprite::PostDraw();

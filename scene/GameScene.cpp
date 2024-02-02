@@ -85,9 +85,13 @@ void GameScene::Initialize() {
 
 	count = 0;
 
+	fade_ = std::make_unique<Fade>();
+	fade_->Initialize(1.0f);
+
 	}
 
 void GameScene::Update() { 
+	fade_->Update(-0.005f);
 	player_->Update();
 	//enemy_->Update();
 	debugCamera_->Update();
@@ -178,6 +182,8 @@ void GameScene::Draw() {
 #pragma region 前景スプライト描画
 	// 前景スプライト描画前処理
 	Sprite::PreDraw(commandList);
+
+	fade_->Draw();
 
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
@@ -342,6 +348,7 @@ void GameScene::CheakCollisions() {
 }
 
 void GameScene::Reset() {
+	followCamera_->Initialize();
 	count = 0;
 	player_->SetTranslation({0.0f, 50.0f, 0.0f});
 	moveYuka_->SetTranslation({4.0f, -2.5f, 13.0f});
@@ -360,3 +367,5 @@ void GameScene::Reset() {
 	tama_[8]->SetTranslation({3.0f, 1.0f, 390.0f});
 	tama_[9]->SetTranslation({0.0f, 1.0f, 395.0f});
 }
+
+void GameScene::FadeReset() { fade_->Initialize(1.0f); }

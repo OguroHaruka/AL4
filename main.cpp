@@ -100,6 +100,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			
 			;
 			if (gameScene->IsSceneEnd()) {
+				gameScene->FadeReset();
 				sceneNo = gameScene->NextScene();
 			}
 			break;
@@ -108,6 +109,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			gameClearScene->Update();
 			gameScene->Reset();
 			if (gameClearScene->IsSceneEnd()) {
+
 				sceneNo = gameClearScene->NextScene();
 			}
 			break;

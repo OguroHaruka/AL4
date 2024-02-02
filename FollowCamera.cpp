@@ -1,7 +1,6 @@
 ﻿#include "FollowCamera.h"
 
 void FollowCamera::Initialize() { 
-	worldTransform_.Initialize();
 	viewProjection_.Initialize();
 
 }

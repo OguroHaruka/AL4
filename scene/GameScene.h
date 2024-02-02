@@ -19,6 +19,7 @@
 #include "hata.h"
 #include "tama.h"
 #include "Scene.h"
+#include "Fade.h"
 #include <memory>
 
 /// <summary>
@@ -55,6 +56,7 @@ public: // メンバ関数
 	void SetIsSceneEnd(bool isSceneEnd_) { isSceneEnd = isSceneEnd_; }
 	SceneType NextScene() { return SceneType::kGameClear; }
 	void Reset();
+	void FadeReset();
 
 private: // メンバ変数
 
@@ -114,6 +116,8 @@ private: // メンバ変数
 	std::unique_ptr<Model> modelNeedleBody_;
 	std::unique_ptr<Model> modelNeedleL_arm_;
 	std::unique_ptr<Model> modelNeedleR_arm_;
+
+	std::unique_ptr<Fade> fade_;
 
 	/// <summary>
 	/// ゲームシーン用

@@ -10,6 +10,7 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include "Scene.h"
+#include "Fade.h"
 class TitleScene {
 public: 
 	TitleScene();
@@ -40,4 +41,7 @@ public:
 	bool isSceneEnd = false;
 
 	Sprite* titleSprite_ = nullptr;
+	std::unique_ptr<Fade> fade_;
+	int fadeCount_;
+	bool fadeFlag_;
 };
