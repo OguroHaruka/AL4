@@ -41,7 +41,7 @@ void GameScene::Initialize() {
 	hataModel_.reset(Model::CreateFromOBJ("hata", true));
 	hata_ = std::make_unique<hata>();
 	hata_->Initialize(hataModel_.get());
-
+ 
 	tamaModel_.reset(Model::CreateFromOBJ("tama", true));
 	for (int i=0; i < 10; i++) {
 		tama_[i] = std::make_unique<tama>();
